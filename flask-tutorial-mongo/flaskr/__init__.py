@@ -20,9 +20,6 @@ def create_app(test_config=None):
         # load the instance config, if it exists, when not testing
         database_configuration = os.getenv('APP_SETTINGS')
         app.config.from_object(database_configuration)
-        with open("instance/secret.txt", 'rb') as file:
-            data = file.read()
-        app.secret_key = data
     else:
         # load the test config if passed in
         app.config.from_object(test_config)
@@ -31,7 +28,12 @@ def create_app(test_config=None):
         # ensure the instance folder exists
         os.makedirs(app.instance_path)
     except OSError:
-        pass
+        try:
+            with open("instance/secret.txt", 'rb') as file:
+                data = file.read()
+            app.secret_key = data
+        except:
+            pass
 
     from db import db
     db.init_app(app)
