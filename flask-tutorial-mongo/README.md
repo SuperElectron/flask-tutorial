@@ -1,4 +1,4 @@
-# Flask Tutorial
+# Flask Tutorial (with MongoDB)
 - http://flask.pocoo.org/docs/1.0/tutorial/
 
 ## Description
@@ -40,3 +40,11 @@ $ pytest --verbose
 ```console
 $ flask init-db
 ```
+
+## Setup the secret 
+- generate a secret key
+```console
+$ python -c 'import os; print(os.urandom(16))'
+```
+- create 'secret.txt' inside 'instance' folder
+- copy and paste
